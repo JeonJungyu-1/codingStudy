@@ -1,5 +1,5 @@
 //두 큐 합 같게 만들기
-//1
+//1 shift 사용해서 시간 초과
 function solution(queue1, queue2) {
     let sum1 = 0;
     let sum2 = 0;
@@ -37,7 +37,7 @@ function solution(queue1, queue2) {
     return answer;
 }
 
-//2
+//2 90점 테스트케이스 2개 에러
 function solution(queue1, queue2) {
     let sum1 = 0;
     let sum2 = 0;
@@ -89,4 +89,34 @@ function solution(queue1, queue2) {
     }
     
     return answer;
+}
+
+//3 성공
+function solution(queue1, queue2) {
+    let sum1 = 0;
+    let sum2 = 0;
+    let tmp1 = 0;
+    let tmp2 = queue1.length;
+    queue1.map((el) => {sum1 += el});
+    queue2.map((el) => {sum2 += el});
+    let sum = sum1 + sum2;
+    let count = 0;
+    
+    let queue = [...queue1, ...queue2, ...queue1, ...queue2];
+    let len = queue.length;
+    while (count <= len) {
+        if (sum / 2 > sum1) {
+            sum1 += queue[tmp2];
+            tmp2++;
+            count++;
+        } else if (sum / 2 < sum1) {
+            sum1 -= queue[tmp1];
+            tmp1++;
+            count++;
+        } else {
+            return count;
+        }
+    }
+    
+    return -1;
 }
