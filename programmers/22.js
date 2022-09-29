@@ -7,6 +7,7 @@ function solution(brown, yellow) {
         yellowNum = (i - 2) * (brownNum - i - 2);
         if (yellowNum === yellow) {
             column = i;
+            break;
         }
     }
     return [brownNum-column, column];
