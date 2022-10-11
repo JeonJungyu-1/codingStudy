@@ -1,20 +1,39 @@
-//다리를 지나는 트럭 (푸는 중)
+//다리를 지나는 트럭 (코드 정리하기)
 function solution(bridge_length, weight, truck_weights) {
-    let answer = 0;
+    let answer = 1;
     let bridge = new Array(bridge_length).fill(0);
+    let cnt = 0;
+    let truckLength = truck_weights.length;
     let truckWeight = 0;
-    while (truck_weights.length || bridge.length) {
-        if (!truck_weights.length && bridge.length) {
-            answer += bridge.length;
+    while (1) {
+        if (!truck_weights.length && cnt === truckLength) {
             break;
         }
         truckWeight = addWeight(bridge);
-        
-        if (bridge.length < bridge_length && (truckWeight + truck_weights[0]) <= weight) {
+        if ((truckLength - cnt - truck_weights.length) < bridge_length && truck_weights.length &&(truckWeight + truck_weights[0]) <= weight) {
+            if (bridge.length !== bridge_length) {
+                bridge.push(truck_weights.shift());
+                answer++;
+                continue;
+            }
+            if (bridge.shift() !== 0) {
+                cnt++;
+            }
             bridge.push(truck_weights.shift());
+            if (addWeight(bridge) === 0) continue;
             answer++;
         } else {
-            bridge.shift();
+
+            if (bridge.shift() !== 0) {
+                cnt++
+            }
+            bridge.push(0);
+            let temp = addWeight(bridge);
+            if ( temp === 0) continue;
+            if ((truckLength - cnt - truck_weights.length) < bridge_length && truck_weights.length &&(temp + truck_weights[0]) <= weight)  {
+                bridge.pop();
+                continue;
+            }
             answer++;
         }
     }
