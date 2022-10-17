@@ -26,3 +26,13 @@ function fibonacci(num) {
         return numCache[num - BigInt(2)] + numCache[num - BigInt(1)];
     }
 }
+
+//2 반복문 사용
+function solution(n) {
+    let answer = [0, 1];
+    
+    for (let i = 1; i < n; i++) {
+        answer.push(BigInt(answer[i - 1]) + BigInt(answer[i]));
+    }
+    return answer[answer.length - 1] % BigInt(1234567);
+}
