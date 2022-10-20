@@ -12,3 +12,17 @@ function solution(s) {
 
     return s.length ? 0 : 1;
 }
+
+//2 효율성도 통과
+function solution(s) {
+    let stack = [s[0]];
+    for (let i = 1; i < s.length; i++) {        
+        if (stack[stack.length - 1] === s[i]) {
+            stack.pop();
+        } else {
+            stack.push(s[i]);
+        }
+    }
+
+    return stack.length ? 0 : 1;
+}
