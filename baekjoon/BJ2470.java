@@ -48,15 +48,15 @@ public class BJ2470 {
             int low = 0;
             int high = water.size() - 1;
             while (true) {
+                int mid = (low + high) / 2;
                 if (low + 1 >= high) {
-                    if (Math.abs(currentSum) < Math.abs(minSum) && high != i) {
+                    if (Math.abs(currentSum) < Math.abs(minSum) && mid != i) {
                         minSum = water.get(high) + water.get(i);
                         finalWater[0] = water.get(high);
                         finalWater[1] = water.get(i);
                     } 
                     break;
                 }
-                int mid = (low + high) / 2;
                 
                 currentSum = water.get(mid) + water.get(i);
                 
@@ -67,6 +67,8 @@ public class BJ2470 {
                     low = mid;
                     currentSum = water.get(low) + water.get(i);
                 } else {
+                    finalWater[0] = water.get(mid);
+                    finalWater[1] = water.get(i);
                     break a;
                 }
             }
