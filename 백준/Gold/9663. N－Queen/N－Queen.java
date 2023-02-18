@@ -14,6 +14,7 @@ public class Main {
     static int N;
     static int[] queen;
     static int count;
+    static boolean[] columnCheck; // 열체크용 배열
     public static void main(String[] args) throws IOException {
         init();
         solve();
@@ -25,15 +26,42 @@ public class Main {
     }
 
     private static void solve() {
+        // 1
+        // for (int i = 0; i < N; i++) {
+        //     queen[0] = i;
+        //     explore(0, i);
+        // }
 
+        // 2
         for (int i = 0; i < N; i++) {
+            columnCheck = new boolean[N];
+            columnCheck[i] = true;
             queen[0] = i;
-            explore(0, i);
+            explore2(0, i);
         }
 
 
     }
 
+    // 2. 상하는 배열로 따로 체크하고, 그 후 대각선 체크
+    private static void explore2(int r, int c) {
+        if (r == N - 1) {
+            count++;
+            return;
+        }
+        
+        for (int i = 0; i < N; i++) {
+            if (columnCheck[i] || !queenCheck(r + 1, i)) continue;
+            queen[r + 1] = i;
+            columnCheck[i] = true;
+            explore(r + 1, i);
+            columnCheck[i] = false;
+        }
+    }
+
+
+
+    // 1. 상하, 대각선 체크 한번에 하기
     private static void explore(int r, int c) {
         if (r == N - 1) {
             count++;
@@ -65,6 +93,7 @@ public class Main {
 
         N = Integer.parseInt(br.readLine());
         queen = new int[N];
+
 
         // bw.write(sb.toString());
         // bw.flush();
