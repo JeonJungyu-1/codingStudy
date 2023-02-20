@@ -1,63 +1,57 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int white = 0;
-    static int blue = 0;
+    static int N;
+    static int white, blue;
     static int[][] map;
-    static boolean isSame;
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        int N = Integer.parseInt(br.readLine());
-        map = new int[N][N];
+    public static void main(String[] args) throws IOException {
+        init();
+        solve();
+        print();
+    }
+    private static void print() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(white).append("\n").append(blue);
+        System.out.println(sb.toString());
+    }
+    private static void solve() {
+        divide(0, 0, N);
+    }
+    private static void divide(int r, int c, int size) {
+        int color = 0;
+        for (int i = r; i < r + size; i++) {
+            for (int j = c; j < c + size; j++) {
+                if (map[i][j] == 0) {
+                    color++;
+                }
+            }
+        }
 
+        if (color == size * size) {
+            white++;
+        } else if (color == 0) {
+            blue++;
+        } else {
+            int half = size / 2;
+            divide(r, c, half);
+            divide(r, c + half, half);
+            divide(r + half, c, half);
+            divide(r + half, c + half, half);
+        }
+    }
+    private static void init() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        N = Integer.parseInt(br.readLine());
+        map = new int[N][N];
         for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
+            StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-
-
-        explore(0, 0, N);
-
-        System.out.println(white);
-        System.out.println(blue);
-
-
     }
-
-    static void explore(int r, int c, int width) {
-        // 1 X 1이거나 같은색으로 이루어져 있을 때 끝내기
-        if (width == 1 || isSame(r, c, width) == true) {
-            int lastNum = map[r][c];
-            if (lastNum == 1) {
-                blue++;
-            } else {
-                white++;
-            }   
-            return;
-        }
-
-        explore(r, c, width/2);
-        explore(r, c + width/2, width/2);
-        explore(r + width/2, c, width/2);
-        explore(r + width/2, c + width/2, width/2);
-        
-    }
-
-    static boolean isSame(int r, int c, int width) {
-        int lastNum = map[r][c];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < width; j++) {
-                if (lastNum != map[r + i][c + j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
+    
 }
