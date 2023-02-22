@@ -66,13 +66,11 @@ public class Main {
                 }
                 
                 
-                if (map[node.r][node.c] == 1) {
-                    if (map[nr][nc] == 0) {
-                        map[nr][nc] = map[node.r][node.c];
-                        que.offer(new Node(nr, nc, node.time + 1));
-                    }
-                    
-                } else {
+                if (map[node.r][node.c] == 1 && map[nr][nc] == 0) {
+                    map[nr][nc] = map[node.r][node.c];
+                    que.offer(new Node(nr, nc, node.time + 1));                    
+                } 
+                if (map[node.r][node.c] == -1) {
                     isVisited[nr][nc] = true;
                     map[nr][nc] = map[node.r][node.c];
 
