@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 // 주식
 // 그리디
+// 뒤에서부터 접근하기
 
 public class Main {
     static StringBuilder sb;
@@ -24,16 +25,11 @@ public class Main {
 
         long high = stock[0];
         for (int i = 0; i < N - 1; i++) {
-            if (stock[i] >= stock[i + 1]) {
+            if (stock[i] >= stock[i + 1] || high > stock[i + 1]) {
                 max += high - stock[i + 1];
             } else {
-                if (high > stock[i + 1]) {
-                    max += high - stock[i + 1];
-                } else {
-                    high = stock[i + 1];
-                }
+                high = stock[i + 1];
             }
-            // System.out.println(max);
         }
         
 
