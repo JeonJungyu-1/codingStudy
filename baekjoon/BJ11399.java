@@ -6,17 +6,15 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-// 센서 - 그리디
-// 센서간의 거리를 오름차순으로 정렬
-// 가장 먼 거리부터 최대 집중국 수 - 1만큼 빼주고 나머지를 더해주면 
-// 최대 K개 집중국의 수신 가능 영역 길이의 합의 최솟값을 구할 수 있다
 
-public class BJ2212 {
+// ATM
+// 1. 오름차순으로 정렬
+// 2. 차례대로 기다리는 시간 구해서 더하기
+public class BJ11399 {
     static StringBuilder sb;
-    static int N, K;
-    static int[] sensor;
-    static int[] sensorDiff;
-    static int min;
+    static int N;
+    static int[] time;
+    static int minTime;
     public static void main(String[] args) throws IOException {
         init();
         solve();
@@ -24,20 +22,14 @@ public class BJ2212 {
     }
     
     private static void print() {
-        System.out.println(min);
+        System.out.println(minTime);
     }
 
     private static void solve() {
-        Arrays.sort(sensor);
-        for (int i = 0; i < N - 1; i++) {
-            sensorDiff[i] = sensor[i + 1] - sensor[i];
+        Arrays.sort(time);
+        for (int i = 0; i < N; i++) {
+            minTime +=  (N - i) * time[i];
         }
-
-        Arrays.sort(sensorDiff);
-        for (int i = 0; i < sensorDiff.length - K + 1; i++) {
-            min += sensorDiff[i];
-        }
-
     }
 
     private static void init() throws IOException {
@@ -45,16 +37,12 @@ public class BJ2212 {
         // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
         sb = new StringBuilder();
-
         N = Integer.parseInt(br.readLine());
-        K = Integer.parseInt(br.readLine());
-        sensor = new int[N];
-        sensorDiff = new int[N - 1];
         st = new StringTokenizer(br.readLine());
+        time = new int[N];
         for (int i = 0; i < N; i++) {
-            sensor[i] = Integer.parseInt(st.nextToken());
+            time[i] = Integer.parseInt(st.nextToken());
         }
-
 
 
 
