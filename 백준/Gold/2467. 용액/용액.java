@@ -43,13 +43,14 @@ public class Main {
                     selected[0] = startNumber;
                     selected[1] = endNumber;
                     selected[2] = diff;
+                } 
+                
+                if (startNumber + endNumber < 0) {
+                    start++;
                 } else {
-                    if (startNumber + endNumber < 0) {
-                        start++;
-                    } else {
-                        end--;
-                    }
+                    end--;
                 }
+                
             }
         }
     }
