@@ -1,69 +1,53 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
-
-// 카잉 달력
-// 브루트포스
-// 최소공배수 구할 때 유클리드 호제법을 이용
 
 public class Main {
-    
-    static StringBuilder sb;
-    static int T, M, N, x, y;
+
+    private static StringBuilder sb;
+
     public static void main(String[] args) throws IOException {
-        solve();
-
-    }
-    
-
-
-    private static void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         sb = new StringBuilder();
-        StringTokenizer st;
-        T = Integer.parseInt(br.readLine());
 
-        for (int t = 0; t < T; t++) {
-            st = new StringTokenizer(br.readLine());
-            M = Integer.parseInt(st.nextToken());
-            N = Integer.parseInt(st.nextToken());
-            x = Integer.parseInt(st.nextToken());
-            y = Integer.parseInt(st.nextToken());
-            int currentX = x;
-            int lcm = lcm(M, N);
-            while (true) {
-                if ((currentX - 1) % N + 1 == y || currentX > lcm) {
+        int t = Integer.parseInt(br.readLine());
+        for (int i = 0; i < t; i++) {
+            String[] nmxy = br.readLine().split(" ");
+            int m = Integer.parseInt(nmxy[0]);
+            int n = Integer.parseInt(nmxy[1]);
+            int x = Integer.parseInt(nmxy[2]);
+            int y = Integer.parseInt(nmxy[3]);
+            int gcd;
+            if (m > n) {
+                gcd = gcd(m, n);
+            } else {
+                gcd = gcd(n, m);
+            }
+            int lcm = m * n / gcd;
+
+            int tempx = x;
+            int tempy = x;
+            boolean seek = false;
+            while (tempx <= lcm) {
+                tempy = tempx % n == 0 ? n : tempx % n;
+                if (tempy == y) {
+                    seek = true;
                     break;
                 }
-
-                currentX += M;
+                tempx += m;
+                tempy %= n;
             }
-            sb.append(currentX > lcm ? -1 : currentX).append("\n");
+
+            sb.append(seek ? tempx : -1).append("\n");
         }
 
-        System.out.println(sb.toString());
-
+        System.out.print(sb);
     }
 
-    private static int gcd(int a, int b) {
-        int r = 0;
-        while (b != 0) {
-            r = a % b;
-            a = b;
-            b = r;
-        }
-        return a;
-    }
-
-    private static int gcd2(int a, int b) {
+    public static int gcd(int a, int b) {
         if (b == 0) {
             return a;
         }
         return gcd(b, a % b);
-    }
-
-    private static int lcm(int a, int b) {
-        return (a * b) / gcd2(a, b);
     }
 }
