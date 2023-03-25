@@ -32,11 +32,19 @@ public class Main {
         print();
     }
     
+    // private static void print() {
+    //     for (int next = K; route[next] != -1; next = route[next]) {
+    //         sb.insert(0, next + " ");
+    //     }
+    //     sb.insert(0, minTime + "\n" + N + " ");
+    //     System.out.println(sb.toString());
+    // }
     private static void print() {
-        for (int next = K; route[next] != -1; next = route[next]) {
-            sb.insert(0, next + " ");
+        sb.append(minTime).append("\n");
+        for (int next = N; route[next] != -1; next = route[next]) {
+            sb.append(next).append(" ");
         }
-        sb.insert(0, minTime + "\n" + N + " ");
+        sb.append(K);
         System.out.println(sb.toString());
     }
 
@@ -44,15 +52,51 @@ public class Main {
         bfs();
     }
 
+    // private static void bfs() {
+    //     Queue<Node> que = new ArrayDeque<>();
+    //     Arrays.fill(route, -1);
+    //     que.offer(new Node(N, 0));
+    //     visited[N] = true;
+
+    //     while (!que.isEmpty()) {
+    //         Node cur = que.poll();
+    //         if (cur.r == K) {
+    //             minTime = cur.t;
+    //             break;
+    //         }
+
+    //         if (cur.r + 1 <= 100000 && !visited[cur.r + 1]) {
+    //             visited[cur.r + 1] = true;
+    //             route[cur.r + 1] = cur.r;
+    //             que.offer(new Node(cur.r + 1, cur.t + 1));
+    //         }
+
+    //         if (cur.r - 1 >= 0 && !visited[cur.r - 1]) {
+    //             visited[cur.r - 1] = true;
+    //             route[cur.r - 1] = cur.r;
+    //             que.offer(new Node(cur.r - 1, cur.t + 1));
+    //         }
+
+    //         if (cur.r * 2 <= 100000 && !visited[cur.r * 2]) {
+    //             visited[cur.r * 2] = true;
+    //             route[cur.r * 2] = cur.r;
+    //             que.offer(new Node(cur.r * 2, cur.t + 1));
+    //         }
+
+            
+    //     }
+    // }
+
+    // K부터 N까지로 탐색하기 (출력시간 줄이기 위해서)
     private static void bfs() {
         Queue<Node> que = new ArrayDeque<>();
         Arrays.fill(route, -1);
-        que.offer(new Node(N, 0));
-        visited[N] = true;
+        que.offer(new Node(K, 0));
+        visited[K] = true;
 
         while (!que.isEmpty()) {
             Node cur = que.poll();
-            if (cur.r == K) {
+            if (cur.r == N) {
                 minTime = cur.t;
                 break;
             }
@@ -69,10 +113,10 @@ public class Main {
                 que.offer(new Node(cur.r - 1, cur.t + 1));
             }
 
-            if (cur.r * 2 <= 100000 && !visited[cur.r * 2]) {
-                visited[cur.r * 2] = true;
-                route[cur.r * 2] = cur.r;
-                que.offer(new Node(cur.r * 2, cur.t + 1));
+            if (cur.r / 2 <= 100000 && !visited[cur.r / 2] && cur.r % 2 == 0) {
+                visited[cur.r / 2] = true;
+                route[cur.r / 2] = cur.r;
+                que.offer(new Node(cur.r / 2, cur.t + 1));
             }
 
             
