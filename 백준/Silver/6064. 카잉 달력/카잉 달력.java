@@ -56,7 +56,14 @@ public class Main {
         return a;
     }
 
+    private static int gcd2(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
     private static int lcm(int a, int b) {
-        return (a * b) / gcd(a, b);
+        return (a * b) / gcd2(a, b);
     }
 }
