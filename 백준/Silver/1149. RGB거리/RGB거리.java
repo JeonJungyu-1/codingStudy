@@ -9,8 +9,8 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int N;
-    static long[][] color;
-    static long[][] memo;
+    static int[][] color;
+    static int[][] memo;
     public static void main(String[] args) throws NumberFormatException, IOException {
         init();
         solve();
@@ -19,7 +19,7 @@ public class Main {
     private static void solve() {
         explore();
 
-        long min = Math.min(Math.min(memo[N][0], memo[N][1]), memo[N][2]);
+        int min = Math.min(Math.min(memo[N][0], memo[N][1]), memo[N][2]);
         System.out.println(min);
     }
     private static void explore() {
@@ -35,13 +35,13 @@ public class Main {
     private static void init() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        color = new long[N + 1][N + 1];
-        memo = new long[N + 3][N + 3];
+        color = new int[N + 1][N + 1];
+        memo = new int[N + 3][N + 3];
         StringTokenizer st;
         for (int i = 1; i < N + 1; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < 3; j++) {
-                color[i][j] = Long.parseLong(st.nextToken());
+                color[i][j] = Integer.parseInt(st.nextToken());
             }
         }
     }
