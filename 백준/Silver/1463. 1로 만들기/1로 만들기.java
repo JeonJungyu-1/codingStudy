@@ -1,49 +1,51 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
-
-// 1로 만들기
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class Main {
-    static StringBuilder sb;
     static int N;
     static int[] memo;
-    public static void main(String[] args) throws IOException {
+    static int min;
+    public static void main(String[] args) throws NumberFormatException, IOException {
         init();
-        solve();
-        print();
+        
     }
-    
-    private static void print() {
-        System.out.println(memo[N]);
-    }
-
-    private static void solve() {
-        memo[1] = 0;
-        memo[2] = 1;
-
-        for (int i = 3; i <= N; i++) {
-            memo[i] = memo[i - 1] + 1;
-            if (i % 2 == 0) {
-                memo[i] = Math.min(memo[i / 2] + 1, memo[i]);
-            }
-            
-            if (i % 3 == 0) {
-                memo[i] = Math.min(memo[i / 3] + 1, memo[i]);
-            }
-
-        }
-
-    }
-
-
     private static void init() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        sb = new StringBuilder();
         N = Integer.parseInt(br.readLine());
-        memo = new int[N + 3];
+        memo = new int[N + 1];
+
+
+        explore();
+        System.out.println(min);
+    }
+    private static void explore() {
+        Queue<Integer> que = new ArrayDeque<>();
+        que.offer(N);
+        memo[N] = 1;
+        while (!que.isEmpty()) {
+            int size = que.size();
+
+            for (int i = 0; i < size; i++) {
+                int cur = que.poll();
+                if (cur == 1) return;
+                if (cur % 3 == 0 && cur / 3 > 0 && memo[cur / 3] == 0) {
+                    que.offer(cur / 3);
+                    memo[cur / 3] = 1;
+                }
+                if (cur % 2 == 0 && cur / 2 > 0 && memo[cur / 2] == 0) {
+                    que.offer(cur / 2);
+                    memo[cur / 2] = 1;
+                }
+                if (cur - 1 > 0  && memo[cur - 1] == 0) {
+                    que.offer(cur - 1);
+                    memo[cur - 1] = 1;
+                }
+
+            }
+            min++;
+        }
     }
 }
