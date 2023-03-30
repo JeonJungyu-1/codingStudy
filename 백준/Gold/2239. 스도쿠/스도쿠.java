@@ -35,8 +35,6 @@ public class Main {
 
 
     private static void dfs(int cnt) {
-        if (isSuccess) return;
-
 
         if (cnt == zeroList.size()) {
             for (int[] m : map) {
@@ -55,6 +53,7 @@ public class Main {
         for (int i = 1; i <= 9; i++) {
             if (!squareCheck(cur.r, cur.c, i) || !rowCheck(cur.r, i) || !columnCheck(cur.c, i)) continue;
             map[cur.r][cur.c] = i;
+            if(isSuccess) return;
             dfs(cnt + 1);
             map[cur.r][cur.c] = 0;
         }
