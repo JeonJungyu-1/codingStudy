@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
@@ -10,6 +11,7 @@ public class Main {
     static int N;
     static int minPrice;
     public static void main(String[] args) throws IOException {
+        // System.setIn(new FileInputStream("src/a.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         map = new int[N][N];
@@ -31,6 +33,7 @@ public class Main {
     }
 
     static void combi(int cnt, int price) {
+        if (minPrice < price) return;
         if (cnt == N) {
             if (map[city[cnt - 1]][city[0]] == 0) return;
             price += map[city[cnt - 1]][city[0]];
@@ -60,4 +63,3 @@ public class Main {
     }
 
 }
-
