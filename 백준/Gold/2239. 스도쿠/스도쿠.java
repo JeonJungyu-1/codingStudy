@@ -14,6 +14,9 @@ public class Main {
     static boolean isSuccess;
     static List<Node> zeroList;
     static StringBuilder sb;
+    static boolean[][] rowCheck;
+    static boolean[][] columnCheck;
+    static boolean[][][] squareCheck;
 
     static class Node {
         int r, c;
@@ -37,13 +40,13 @@ public class Main {
     private static void dfs(int cnt) {
 
         if (cnt == zeroList.size()) {
+            
             for (int[] m : map) {
                 for (int num : m) {
                     sb.append(num);
                 }
                 sb.append("\n");
             }
-            
     
             isSuccess = true;
             return;
@@ -51,11 +54,18 @@ public class Main {
 
         Node cur = zeroList.get(cnt);
         for (int i = 1; i <= 9; i++) {
-            if (!squareCheck(cur.r, cur.c, i) || !rowCheck(cur.r, i) || !columnCheck(cur.c, i)) continue;
-            map[cur.r][cur.c] = i;
+            // if (!squareCheck(cur.r, cur.c, i) || !rowCheck(cur.r, i) || !columnCheck(cur.c, i)) continue;
             if(isSuccess) return;
+            if (squareCheck[i][cur.r/3][cur.c/3] || rowCheck[i][cur.r] || columnCheck[i][cur.c]) continue;
+            squareCheck[i][cur.r/3][cur.c/3] = true;
+            rowCheck[i][cur.r] = true;
+            columnCheck[i][cur.c] = true;
+            map[cur.r][cur.c] = i;
             dfs(cnt + 1);
             map[cur.r][cur.c] = 0;
+            squareCheck[i][cur.r/3][cur.c/3] = false;
+            rowCheck[i][cur.r] = false;
+            columnCheck[i][cur.c] = false;
         }
 
     }
@@ -91,13 +101,22 @@ public class Main {
     private static void init() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         map = new int[9][9];
+        rowCheck = new boolean[10][9];
+        columnCheck = new boolean[10][9];
+        squareCheck = new boolean[10][3][3];
         zeroList = new ArrayList<>();
         sb = new StringBuilder();
         for (int i = 0; i < 9; i++) {
             char[] ch = br.readLine().toCharArray();
             for (int j = 0; j < 9; j++) {
                 map[i][j] = ch[j] - '0';
-                if (map[i][j] == 0) zeroList.add(new Node(i, j));
+                if (map[i][j] == 0) {
+                    zeroList.add(new Node(i, j));
+                } else {
+                    rowCheck[map[i][j]][i] = true;
+                    columnCheck[map[i][j]][j] = true;
+                    squareCheck[map[i][j]][i/3][j/3] = true;
+                }
             }
         }
 
