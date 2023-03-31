@@ -39,7 +39,7 @@ public class Main {
             }
         }
 
-        explore(0, 0);
+        explore(0, 0, 0);
         
 
         System.out.println(max);
@@ -47,18 +47,18 @@ public class Main {
 
     }
 
-    private static void explore(int cnt, int sum) {
+    private static void explore(int cnt, int start, int sum) {
         if (cnt == K) {
             max = Math.max(max, sum);
             return;
         }
         
-        for (int i = 0; i < nodeList.length; i++) {
+        for (int i = start; i < nodeList.length; i++) {
             int r = nodeList[i].r;
             int c = nodeList[i].c;
             if (!mapCheck(r, c)) continue;
             visited[r][c] = true;
-            explore(cnt + 1, sum + map[r][c]);
+            explore(cnt + 1, i + 1, sum + map[r][c]);
             visited[r][c] = false;
             
         }
