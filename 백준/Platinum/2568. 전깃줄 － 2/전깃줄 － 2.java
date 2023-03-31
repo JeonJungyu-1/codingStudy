@@ -47,7 +47,8 @@ public class Main {
         visited = new boolean[500001];
         int index = size;
         for (int i = len; i >= 1; i--) {
-            if (index != 0 && record[i] == index) {
+            if (index == 0) break;
+            if (record[i] == index) {
                 visited[i] = true;
                 index--;
             }
