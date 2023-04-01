@@ -33,16 +33,17 @@ public class Main {
         dp[1][3] = 1;
         dp[2][3] = 1;
         dp[3][3] = 1;
+
+        int index = 4;
+
         for (int t = 0; t < T; t++) {
             N = Integer.parseInt(br.readLine());
 
-            for (int i = 4; i <= N; i++) {
-                if (dp[0][i] == 0) {
-                    dp[1][i] = (dp[2][i - 1] + dp[3][i - 1]) % 1000000009;
-                    dp[2][i] = (dp[1][i - 2] + dp[3][i - 2]) % 1000000009;
-                    dp[3][i] = (dp[1][i - 3] + dp[2][i - 3]) % 1000000009;
-                    dp[0][i] = -1;
-                }
+            while (index <= N) {
+                dp[1][index] = (dp[2][index - 1] + dp[3][index - 1]) % 1000000009;
+                dp[2][index] = (dp[1][index - 2] + dp[3][index - 2]) % 1000000009;
+                dp[3][index] = (dp[1][index - 3] + dp[2][index - 3]) % 1000000009;
+                index++;
             }
             
             dp[0][N] = (((dp[1][N] + dp[2][N]) % 1000000009) + dp[3][N]) % 1000000009;
