@@ -11,7 +11,7 @@ public class Main {
     
     static StringBuilder sb;
     static int T, N;
-    static long[][] dp;
+    static int[][] dp;
     public static void main(String[] args) throws IOException {
         solve();
     }
@@ -21,7 +21,7 @@ public class Main {
         StringTokenizer st;
         sb = new StringBuilder();
         T = Integer.parseInt(br.readLine());
-        dp = new long[4][1000001];
+        dp = new int[4][1000001];
         dp[0][1] = 1;
         dp[0][2] = 1;
         dp[0][3] = 3;
@@ -41,10 +41,11 @@ public class Main {
                     dp[1][i] = (dp[2][i - 1] + dp[3][i - 1]) % 1000000009;
                     dp[2][i] = (dp[1][i - 2] + dp[3][i - 2]) % 1000000009;
                     dp[3][i] = (dp[1][i - 3] + dp[2][i - 3]) % 1000000009;
-                    dp[0][i] = (dp[1][i] + dp[2][i] + dp[3][i]) % 1000000009;
+                    dp[0][i] = -1;
                 }
             }
-
+            
+            dp[0][N] = (((dp[1][N] + dp[2][N]) % 1000000009) + dp[3][N]) % 1000000009;
             sb.append(dp[0][N]).append("\n");
         }
 
