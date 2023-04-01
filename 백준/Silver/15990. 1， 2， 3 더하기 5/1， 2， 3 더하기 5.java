@@ -21,7 +21,7 @@ public class Main {
         StringTokenizer st;
         sb = new StringBuilder();
         T = Integer.parseInt(br.readLine());
-        dp = new int[4][1000001];
+        dp = new int[4][100001];
         dp[0][1] = 1;
         dp[0][2] = 1;
         dp[0][3] = 3;
