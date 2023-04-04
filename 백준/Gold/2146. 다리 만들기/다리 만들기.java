@@ -51,15 +51,21 @@ public class Main {
 
         // 거리 계산
         minDistance = Integer.MAX_VALUE;
+        visited = new boolean[N][N];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (map[i][j] == 0) continue;
-                visited = new boolean[N][N];
+                initVisited();
                 calculateDistance(i, j, map[i][j]);
             }
         }
         System.out.println(minDistance);
 
+    }
+    private static void initVisited() {
+        for (int i = 0; i < N; i++) {
+            Arrays.fill(visited[i], false);
+        }
     }
     private static void calculateDistance(int r, int c, int num) {
         Queue<Node> que = new ArrayDeque<>();
