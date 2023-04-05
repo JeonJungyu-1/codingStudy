@@ -36,21 +36,20 @@ public class Solution {
                 for (int i = 0; i < N; i++) {
                     if (k == i) continue;
                     for (int j = 0; j < N; j++) {
-                        if (i == j || k == j) continue;
                         dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k][j]);
                     }
                 }
             }
 
 
-            int[] result = new int[N];
             int min = Integer.MAX_VALUE;
             for (int i = 0; i < N; i++) {
+                int result = 0;
                 for (int j = 0; j < N; j++) {
                     if (dp[i][j] == INF) continue;
-                    result[i] += dp[i][j];
+                    result += dp[i][j];
                 }
-                min = Math.min(result[i], min);
+                min = Math.min(result, min);
             }
 
             sb.append("#").append(t).append(" ").append(min).append("\n");
