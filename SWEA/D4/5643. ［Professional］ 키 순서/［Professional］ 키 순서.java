@@ -47,12 +47,8 @@ public class Solution {
             for (int i = 1; i <= N; i++) {
                 int cnt = 0;
                 for (int j = 1; j <= N; j++) {
-                    if (i != j) {
-                        if (dp[i][j] != INF) {
-                            cnt++;
-                        } else if (dp[i][j] == INF && dp[j][i] != INF) {
-                            cnt++;
-                        }
+                    if (i != j && (dp[i][j] != INF || dp[j][i] != INF)) {
+                        cnt++;
                     }
                 }
 
