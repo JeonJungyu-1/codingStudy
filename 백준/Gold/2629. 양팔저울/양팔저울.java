@@ -47,14 +47,15 @@ public class Main {
             }
         }
 
+        
         // 가능한 무게 체크
         for (int i = 0; i < dp.length; i++) {
             if (dp[i] != 1) continue;
             for (int j = 1; j <= i / 2; j++) {
-                if (dp[j] == 1 || dp[i - j] == 1) {
-                    if (dp[j] == 0) dp[j] = 2;
-                    if (dp[i - j] == 0) dp[i - j] = 2;
-                }
+                if (dp[j] != 1 && dp[i - j] != 1) continue;
+
+                if (dp[j] == 0) dp[j] = 2;
+                if (dp[i - j] == 0) dp[i - j] = 2;
             }
         }
 
