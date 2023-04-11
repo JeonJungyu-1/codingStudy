@@ -76,11 +76,6 @@ public class Main {
             return;
         }
 
-        
-        int[][] copyMap = new int[10][10];
-        for (int i = 0; i < 10; i++) {
-            copyMap[i] = Arrays.copyOf(map[i], 10);
-        }
 
 
         Node cur = nodeList.get(cnt);
@@ -95,7 +90,7 @@ public class Main {
                     paper[i]--;
                     perm(cnt + 1, paperCnt + 1, all + (i * i));
                     paper[i]++;
-                    initSquare(copyMap);
+                    initSquare(cur.r, cur.c, i);
                 }
     
             }
@@ -133,9 +128,11 @@ public class Main {
     //     }
     // }
 
-    private static void initSquare(int[][] copyMap) {
-        for (int i = 0; i < 10; i++) {
-            map[i] = Arrays.copyOf(copyMap[i], 10);
+    private static void initSquare(int r, int c, int k) {
+        for (int i = r; i < r + k; i++) {
+            for (int j = c; j < c + k; j++) {
+                map[i][j] = 1;
+            }
         }
     }
 
