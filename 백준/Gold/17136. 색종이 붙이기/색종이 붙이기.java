@@ -87,7 +87,7 @@ public class Main {
         if (map[cur.r][cur.c] != 1) {
             perm(cnt + 1, paperCnt, all);
         } else {
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 5; i >= 1; i--) {
                 if (paper[i] == 0) {
                     continue;
                 } else if (checkSquare(cur.r, cur.c, i)) { 
