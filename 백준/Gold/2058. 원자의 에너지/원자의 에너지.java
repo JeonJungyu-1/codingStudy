@@ -18,7 +18,6 @@ public class Main {
     static Map<Integer, Integer> atomIndex;
     static int[] proton;
     static int[][] dp;
-    // static int[][] adj;
     static boolean[] visited;
     static List<ArrayList<Integer>> adj;
     static int maxEnergy;
@@ -31,11 +30,9 @@ public class Main {
         proton = new int[M];
         atomIndex = new HashMap<>();
 
-        int max = Integer.MIN_VALUE;
         for (int i = 0; i < N; i++) {
             atom[i] = Integer.parseInt(br.readLine());
             atomIndex.put(atom[i], i);
-            max = Math.max(max, atom[i]);
         }
 
         for (int i = 0; i < M; i++) {
@@ -45,38 +42,24 @@ public class Main {
         dp = new int[N][2];
 
         adj = new ArrayList<>();
-        for (int i = 0; i <= max; i++) {
+        for (int i = 0; i <= N; i++) {
             adj.add(new ArrayList<>());
         }
 
         for (int i = 0; i < atom.length; i++) {
             for (int j = 0; j < proton.length; j++) {
                 if (atom[i] - proton[j] > 0 && atomIndex.containsKey(atom[i] - proton[j])) {
-                    adj.get(atom[i]).add(atomIndex.get(atom[i] - proton[j]));
-                    adj.get(atom[i] - proton[j]).add(i);
+                    adj.get(i).add(atomIndex.get(atom[i] - proton[j]));
+                    adj.get(atomIndex.get(atom[i] - proton[j])).add(i);
                 }
             }
         }
         
 
         maxEnergy = Integer.MIN_VALUE;
-        Arrays.sort(atom);
-        Arrays.sort(proton);
-        // for (int i = 0; i < atom.length; i++) {
-        //     visited = new boolean[max + 1];
-        //     visited[atom[i]] = true;
-        //     dfs(atom[i], atom[i], 1);
-        // }
+
         visited = new boolean[N];
-        // visited[0] = true;
         dfs(0, -1);
-        //     System.out.println(atomIndex.entrySet());
-
-        // System.out.println(adj);
-        // for (int[] a: dp) {
-        //     System.out.println(Arrays.toString(a));
-
-        // }
 
         System.out.println(maxEnergy);
 
@@ -90,7 +73,7 @@ public class Main {
         dp[cur][1] = atom[cur];
         dp[cur][0] = 0;
 
-        for (int next : adj.get(atom[cur])) {
+        for (int next : adj.get(cur)) {
             if (next != prev) {
                 dfs(next, cur);
                 dp[cur][1] += dp[next][0];
@@ -99,19 +82,5 @@ public class Main {
             }
         }
     }
-    // private static void dfs(int cur, int sum, int flag) {
-        
-
-    //     System.out.println(maxEnergy);
-    //     maxEnergy = Math.max(maxEnergy, sum);
-
-
-    //     for (int i = 0; i < atom.length; i++) {
-    //         if (visited[atom[i]]) continue;
-    //         visited[atom[i]] = true;
-    //         dfs(atom[i], flag == -1 ? sum + atom[i] : sum, -flag);
-    //         visited[atom[i]] = false;
-    //     }
-        
-    // }
+   
 }
