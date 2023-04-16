@@ -19,7 +19,6 @@ public class Main {
 
     private static void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
         sb = new StringBuilder();
         N = Integer.parseInt(br.readLine());
@@ -33,15 +32,17 @@ public class Main {
         replaceStr.append("I");
         
         int result = 0;
-        String changeStr = replaceStr.substring(0, N * 2 - 1);
-        
+        int index = 0;
         while (true) {
-            M = str.length();
-            str = str.replaceAll(replaceStr.toString(), changeStr);
-            if (M == str.length()) break;
-            result += (M - str.length()) / 2;
+            index = str.indexOf(replaceStr.toString(), index);
+            if (index == -1) {
+                break;
+            } else {
+                result++;
+                index += 2;
+            }
         }
-        
+
         System.out.println(result);
 
 
