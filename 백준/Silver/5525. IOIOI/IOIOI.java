@@ -11,6 +11,7 @@ public class Main {
     static StringBuilder sb;
     static int N, M;
     static String str;
+    static StringBuilder replaceStr;
     public static void main(String[] args) throws IOException {
         solve();
     }
@@ -26,18 +27,19 @@ public class Main {
         M = Integer.parseInt(br.readLine());
         str = br.readLine();
 
-        // StringBuilder replaceStr = new StringBuilder();
+        replaceStr = new StringBuilder();
         // for (int i = 0; i < N; i++) {
         //     replaceStr.append("IO");
         // }
         // replaceStr.append("I");
+        
         
 
         
 
         int result = 0;
         int index = 0;
-        String changeStr = "IO".repeat(N) + "I";
+        String changeStr = divide(N) + "I";
         while (true) {
             index = str.indexOf(changeStr, index);
             if (index == -1) {
@@ -57,5 +59,19 @@ public class Main {
         // bw.write(sb.toString());
         // bw.flush();
         // bw.close();    
+    }
+
+
+
+    private static String divide(int n) {
+        StringBuilder st = new StringBuilder();
+        if (n == 1) {
+            return "IO";
+        } else{
+            String s = divide(n/2);
+            st.append(s).append(s);
+            if (n % 2 == 1) st.append("IO");
+            return st.toString();
+        }
     }
 }
