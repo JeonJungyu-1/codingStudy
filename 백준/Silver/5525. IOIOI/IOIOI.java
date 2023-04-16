@@ -19,22 +19,27 @@ public class Main {
 
     private static void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
         sb = new StringBuilder();
         N = Integer.parseInt(br.readLine());
         M = Integer.parseInt(br.readLine());
         str = br.readLine();
 
-        StringBuilder replaceStr = new StringBuilder();
-        for (int i = 0; i < N; i++) {
-            replaceStr.append("IO");
-        }
-        replaceStr.append("I");
+        // StringBuilder replaceStr = new StringBuilder();
+        // for (int i = 0; i < N; i++) {
+        //     replaceStr.append("IO");
+        // }
+        // replaceStr.append("I");
         
+
+        
+
         int result = 0;
         int index = 0;
+        String changeStr = "IO".repeat(N) + "I";
         while (true) {
-            index = str.indexOf(replaceStr.toString(), index);
+            index = str.indexOf(changeStr, index);
             if (index == -1) {
                 break;
             } else {
