@@ -18,6 +18,7 @@ public class Main {
     static int[][] map;
     static boolean[][] visited;
     static int max;
+    static int maxNumber;
 
     static int[] dr = {0, -1, 0, 1};
     static int[] dc = {-1, 0, 1, 0};
@@ -44,6 +45,7 @@ public class Main {
             return;
         }
 
+        if (max >= maxNumber * (4 - cnt) + sum) return;
         for (int d = 0; d < 4; d++) {
             int nr = r + dr[d];
             int nc = c + dc[d];
@@ -82,10 +84,12 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
         map = new int[N][M];
         visited = new boolean[N][M];
+        maxNumber = Integer.MIN_VALUE;
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < M; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
+                maxNumber = Math.max(maxNumber, map[i][j]);
             }
         }
 
