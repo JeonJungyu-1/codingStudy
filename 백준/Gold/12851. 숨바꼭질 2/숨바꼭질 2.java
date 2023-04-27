@@ -41,13 +41,13 @@ public class Main {
             for (int i = 0; i < size; i++) {
                 int cur = que.poll();
                 visited[cur] = true;
-    
+                if (cur < 0 || cur > 100000) continue;
                 if (cur == K) {
                     count++;
                     isEnd = true;
                 }
 
-                if (cur * 2 < K * 2 && !visited[cur * 2]) {
+                if (cur * 2 > 0 && cur * 2 < 100001 && !visited[cur * 2]) {
                     que.offer(cur * 2);
                 }
 
@@ -72,7 +72,7 @@ public class Main {
         sb = new StringBuilder();
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
-        visited = new boolean[Math.max(N, K) * 2];
+        visited = new boolean[100001];
 
       
 
