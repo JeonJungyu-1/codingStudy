@@ -30,11 +30,11 @@ public class Main {
         // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
         sb = new StringBuilder();
+        memo = new int[2][100001];
 
         T = Integer.parseInt(br.readLine());
         for (int t = 0; t < T; t++) {
             N = Integer.parseInt(br.readLine());
-            memo = new int[2][N + 1];
             for (int i = 0; i < 2; i++) {
                 st = new StringTokenizer(br.readLine());
                 for (int j = 0; j < N; j++) {
@@ -49,8 +49,12 @@ public class Main {
                 memo[1][i] += Math.max(memo[0][i - 2], memo[0][i - 1]);
             }
 
-
+            
+            
             sb.append(Math.max(memo[0][N - 1], memo[1][N - 1])).append("\n");
+            for (int i = 0; i < 2; i++) {
+                Arrays.fill(memo[i], 0, N, 0);
+            }
         }
 
         System.out.println(sb.toString());
