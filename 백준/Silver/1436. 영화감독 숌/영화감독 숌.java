@@ -24,7 +24,7 @@ public class Main {
         int number = 665;
         while (cnt < N) {
             number++;
-            if (Integer.toString(number).indexOf("666") != -1) {
+            if (Integer.toString(number).contains("666")) {
                 cnt++;
             }
         }
