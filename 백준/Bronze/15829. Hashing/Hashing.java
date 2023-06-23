@@ -22,11 +22,11 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         char[] ch = br.readLine().toCharArray();
 
-        int result = 0;
-        int multi = 1;
+        long result = 0;
+        long multi = 1;
         for (int i = 0; i < N; i++) {
             result += ((ch[i] - 96) * multi) % 1234567891;
-            multi *= 31;
+            multi = (multi * 31) % 1234567891;
         }
 
         System.out.println(result);
