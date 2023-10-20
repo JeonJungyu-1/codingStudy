@@ -13,10 +13,10 @@ class Solution {
         
         
         // nP1 ... nPn
-        for (int i = 1; i <= numbers.length(); i++) {
+        // for (int i = 1; i <= numbers.length(); i++) {
             boolean[] visited = new boolean[numbers.length()];
-            perm(0, "", i, visited);
-        }        
+            perm(0, "", numbers.length(), visited);
+        // }        
         
         for (int number : set) {
             if (isPrime(number)) answer++;
@@ -39,8 +39,9 @@ class Solution {
     }
     
     public void perm(int cnt, String num, int n, boolean[] visited) {
+        if (!num.equals("")) set.add(Integer.parseInt(num));
+
         if (cnt == n) {
-            set.add(Integer.parseInt(num));
             return;
         }
         
