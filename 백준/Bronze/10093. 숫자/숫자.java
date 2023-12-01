@@ -29,19 +29,19 @@ public class Main {
         sb = new StringBuilder();
 
         st = new StringTokenizer(br.readLine());
-        int a = Integer.parseInt(st.nextToken());
-        int b = Integer.parseInt(st.nextToken());
+        long a = Long.parseLong(st.nextToken());
+        long b = Long.parseLong(st.nextToken());
 
         if (a > b) {
-            int temp = a;
+            long temp = a;
             a = b;
             b = temp;
         }
-        int diff = b - a - 1;
+        long diff = b - a - 1;
         if (a == b) diff++;
         sb.append(diff).append("\n");
         
-        for (int i = a + 1; i < b; i++) {
+        for (long i = a + 1; i < b; i++) {
             sb.append(i).append(" ");
         }
 
