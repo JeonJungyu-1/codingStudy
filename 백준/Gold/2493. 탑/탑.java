@@ -45,18 +45,16 @@ public class Main {
 
         Stack<Top> stack = new Stack<>();
         for (int i = N - 1; i >= 0; i--) {
-            if (stack.isEmpty()) {
-                stack.push(new Top(i, height[i]));
-            } else {
-                
-                while (!stack.isEmpty() && stack.peek().height < height[i]) {
-                    Top cur = stack.pop();
-                    result[cur.index] = i + 1;
-                }
-                
-                stack.push(new Top(i, height[i]));
-                
+            
+            while (!stack.isEmpty() && stack.peek().height < height[i]) {
+                Top cur = stack.pop();
+                result[cur.index] = i + 1;
             }
+            
+            stack.push(new Top(i, height[i]));
+            
+            
+  
         }
 
         print(result);
