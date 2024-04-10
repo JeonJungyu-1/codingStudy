@@ -36,9 +36,9 @@ public class Main {
 
         int sum = 0;
         outer:
-        for (int i = 0; i < N/A; i++) {
-            for (int j = 0; j < N/B; j++) {
-                for (int k = 0; k < N/C; k++) {
+        for (int i = 0; i <= N/A; i++) {
+            for (int j = 0; j <= N/B; j++) {
+                for (int k = 0; k <= N/C; k++) {
                     sum = A * i + B * j + C * k;
                     if (sum == N) break outer;
                 }
