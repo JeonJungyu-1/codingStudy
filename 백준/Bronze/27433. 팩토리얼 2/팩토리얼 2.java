@@ -30,7 +30,7 @@ public class Main {
         sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        BigInteger result = fact2(1, N);
+        BigInteger result = fact(1, N);
         System.out.println(result.toString());
 
 
@@ -41,12 +41,16 @@ public class Main {
     }
 
     public static BigInteger fact(int a, int n) {
-        if (a == n) {
-            return BigInteger.valueOf(a);
+        BigInteger mul = BigInteger.valueOf(a);
+        if (a < n) {
+            int b = (a + n) / 2;
+        mul = fact(a, b).multiply(fact(b + 1, n));
+        
         }
 
-        int mid = (a + n) / 2;
-        return fact(a, mid).multiply(fact2(mid + 1, n));
+        
+        
+        return mul;
     }
 
     public static BigInteger fact2(int a, int n) {
@@ -55,7 +59,7 @@ public class Main {
 		
 		if(a < n) {
 			int b = (a + n) / 2;
-			mul = fact2(a, b).multiply(fact(b + 1, n));
+			mul = fact(a, b).multiply(fact(b + 1, n));
 		}
 		
 		return mul;
