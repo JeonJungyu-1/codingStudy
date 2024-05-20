@@ -46,7 +46,7 @@ public class Main {
         }
 
         int mid = (a + n) / 2;
-        return fact(a, mid).multiply(fact(mid + 1, n));
+        return fact(a, mid).multiply(fact2(mid + 1, n));
     }
 
     public static BigInteger fact2(int a, int n) {
@@ -55,7 +55,7 @@ public class Main {
 		
 		if(a < n) {
 			int b = (a + n) / 2;
-			mul = fact(a, b).multiply(fact(b + 1, n));
+			mul = fact2(a, b).multiply(fact(b + 1, n));
 		}
 		
 		return mul;
